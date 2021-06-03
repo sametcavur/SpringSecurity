@@ -1,0 +1,28 @@
+Application classta component scan edip bütün classları taramayı unutma
+-----------------------------------------------------------------------------------------------------------------
+Security i mavende eklediğimizde,hangi sayfayı açarsak açalım ilk önce bizi login sayfasına yönlendirir
+bu login sayfasında giriş yapabilmek için birkaç yöntemle kendimize user password tanımlayabiliriz
+bu yöntemlerden biri properties dosyasına gelip 
+spring.security.user.name = admin
+spring.security.user.password = password    yazıp kendimize user pass tanımlayabiliriz.
+-----------------------------------------------------------------------------------------------------------------
+Bu login sayfasını disable yapabilmek içinse bir kaç yöntem var 
+**Birincisi application classımıza gelip şunu yazmalıyız ama bu pek sağlıklı değil çünkü
+direk security'i disable ediyor sadece logini değil
+@SpringBootApplication--(exclude = SecurityAutoConfiguration.class)--
+bunun mantığı şudur securityautoconfiguration.class yapıyoruz güvenlik işlemleri için onu bu projede dahil etme
+-----------------------------------------------------------------------------------------------------------------
+**İkincisi security config classımdaki configure metoduna şunu yazıyoruz.	http.formLogin().disable();
+@EnableWebSecurity
+public class SecurityTurn  extends WebSecurityConfigurerAdapter {
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.formLogin().disable();********
+	}
+}
+-----------------------------------------------------------------------------------------------------------------
+**Üçüncüsü direk bu üstteki configure classının içini boş bırakmak
+@Override
+	protected void configure(HttpSecurity http) throws Exception {
+	}
+-----------------------------------------------------------------------------------------------------------------
