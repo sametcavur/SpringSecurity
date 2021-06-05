@@ -1,0 +1,49 @@
+Bu konunun mantığı şudur.Diyelim bir siteye girdik bazı yazılara,linklere
+objelere vs sadece user bazılarına sadece admin ulaşabilir.İşte bu olayı
+yapacağız.Bunu yapmak için mavene eklememiz gereken bağımlılık
+
+	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+	<dependency>
+   		 <groupId>org.springframework.security</groupId>
+   		 <artifactId>spring-security-taglibs</artifactId>
+    	 <version>5.5.0</version>
+	</dependency>
+	
+Daha sonra jsf sayfasına geleceğiz ve en üste şu taglibi ekleyeceğiz
+
+	<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+	
+Daha sonra jsp dosyasını şu şekilde kodlamalıyız.
+
+	<security:authorize access="hasRole('USER')">
+	<h1>Buraya user erişebilir</h1>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('ADMIN')">
+	<h1>Buraya admin erişebilir</h1>
+	</security:authorize>
+
+
+***************ÖRNEK JSP FİLE***************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<security:authorize access="hasRole('USER')">
+<h1>Buraya user erişebilir</h1>
+</security:authorize>
+
+<security:authorize access="hasRole('ADMIN')">
+<h1>Buraya admin erişebilir</h1>
+</security:authorize>
+
+</body>
+</html>
